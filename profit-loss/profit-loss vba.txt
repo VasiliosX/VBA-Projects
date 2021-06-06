@@ -1,0 +1,39 @@
+Public Sub PROFIT()
+
+Dim WS As Integer
+Dim WS_I As Integer
+
+WS = ActiveWorkbook.Worksheets.Count
+For WS_I = 1 To WS - 1
+  
+  
+   Worksheets(WS_I).Activate
+   Range("B1", "B4").Copy
+   Sheets("P&L").Activate
+   If WS_I < 3 Then
+   
+    Range("A2").Offset(WS_I * 4 - 4, 0).Select
+    Else
+    Range("A2").Offset(WS_I * 4 - 12, 1).Select
+    End If
+    
+   ActiveSheet.Paste
+   
+  
+   
+Next WS_I
+
+Range("A11").Value = "Total Revenue"
+
+
+Range("A12") = WorksheetFunction.Sum(Range("A2:A9"))
+
+Range("B11").Value = "Total Cost"
+
+
+Range("B12") = WorksheetFunction.Sum(Range("B2:B9"))
+
+Range("C11") = "Profit"
+
+Range("C12") = [A12] - [b12]
+End Sub
