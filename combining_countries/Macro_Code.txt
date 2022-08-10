@@ -1,0 +1,71 @@
+Public Sub Macro2()
+Dim Name As String
+Dim Row_num As Integer
+Dim Col_num As Integer
+Dim Range_var As Range
+Dim i As Integer
+Dim c As Range
+
+For i = 5 To 300
+Worksheets("Calculation").Activate
+Cells(i, 2).Select
+Name = Cells(i, 2).Value
+
+Sheets("Percentage_change").Select
+Set c = Range("A1:C300").Find(What:=Name)
+If Not c Is Nothing Then
+Range("A1:C300").Find(What:=Name).Select
+ActiveCell.Offset(0, 5).Select
+Row_num = ActiveCell.Row
+Col_num = ActiveCell.Column
+
+
+Range(Cells(Row_num, Col_num), Cells(Row_num, Col_num + 5)).Copy
+
+Sheets("Calculation").Select
+Range(Cells(i, 4), Cells(i, 9)).PasteSpecial
+End If
+Next i
+End Sub
+
+
+
+
+
+.....................................................
+
+
+
+
+
+
+
+
+Public Sub southern()
+Dim Found As Range
+Dim myarray As Variant
+myarray = Array("Tunisia", "Algeria", "Egypt", "Morocco", "Jordan", "Syria", "Libya", "Lebanon", "Israel")
+Dim Origin_sheet As String
+Dim destination_sheet As String
+Dim Row_num As Integer
+Dim Col_num As Integer
+Origin_sheet = InputBox("What is the name of the Origin Sheet?")
+destination_sheet = InputBox("What is the name of the Destination Sheet?")
+
+
+For i = 0 To 8
+With Sheets(Origin_sheet).Range("A:A")
+ Set Found = .Range("B2:C300").Find(What:=myarray(i))
+
+End With
+
+
+MsgBox Found.Row
+
+
+Sheets(Origin_sheet).Range(Cells(Found.Row, 2), Cells(Found.Row, 35)).Select
+
+
+Next i
+
+End Sub
